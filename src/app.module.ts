@@ -13,6 +13,8 @@ import { MemoryModule } from './memory/memory.module.js';
 import { RagModule } from './rag/rag.module.js';
 import { FunctionCallingModule } from './function-calling/function-calling.module.js';
 import { RagDbModule } from './rag-db/rag-db.module.js';
+import { McpClientModule } from './mcp-client/mcp-client.module.js';
+import { McpAgentModule } from './mcp-agent/mcp-agent.module.js';
 
 @Module({
   imports: [UserModule, PrismaModule, PostModule,
@@ -22,7 +24,7 @@ import { RagDbModule } from './rag-db/rag-db.module.js';
      */
     ConfigModule.forRoot({
       isGlobal: true,
-    }), ModelsModule, PromptsModule, ChainsModule, AgentsModule, MemoryModule, RagModule, FunctionCallingModule, RagDbModule],
+    }), ModelsModule, PromptsModule, ChainsModule, AgentsModule, MemoryModule, RagModule, FunctionCallingModule, RagDbModule, McpClientModule, McpAgentModule],
   controllers: [AppController],
   providers: [AppService],
 })
