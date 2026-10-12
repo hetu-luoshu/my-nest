@@ -1,10 +1,17 @@
-import { Body, Controller, Get, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 import { LanggraphService } from './langgraph.service.js';
 import { ArticleService } from './article/article.service.js';
+import { ReasoningAgentService } from './reasoning-agent/reasoning-agent.service.js'
+import { RoutingService } from './routing/routing.service.js'
 
 @Controller('langgraph')
 export class LanggraphController {
-  constructor(private readonly langgraphService: LanggraphService, private readonly ArticleService: ArticleService) { }
+  constructor(
+    private readonly langgraphService: LanggraphService,
+    private readonly ArticleService: ArticleService,
+    private readonly ReasoningAgentService: ReasoningAgentService,
+    private readonly RoutingService: RoutingService
+  ) { }
 
   // 简单回答
   @Post('simple')
@@ -29,4 +36,13 @@ export class LanggraphController {
     return this.ArticleService.processArticle(body.article);
   }
 
+  @Post('reasoning')
+  async reasoning(@Body() body: { message: string, threadId: string }) {
+    return this.ReasoningAgentService.reasoningActing(body.message, body.threadId);
+  }
+
+  @Post('route')
+  async route(@Body() body: { input: string }) {
+    return this.RoutingService.routeChat(body.input)
+  }
 }
